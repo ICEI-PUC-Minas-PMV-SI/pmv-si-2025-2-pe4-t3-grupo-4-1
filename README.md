@@ -10,12 +10,13 @@ BI para Gestão de Doações e Prestação de Contas
 
 ## Integrantes
 
-- João de Sousa Lourenço
-- Matheus Fernandes da Silva Otoni
-- Lucas Alves de Medeiros Ferreira
-- Gabriel Carvalho de Almeida Silva
 - Fernando de Souza Colini Taioba
+- Gabriel Carvalho de Almeida Silva
 - Ítalo Rangel Penaforte Mendes
+- João de Sousa Lourenço
+- Lucas Alves de Medeiros Ferreira
+- Matheus Fernandes da Silva Otoni
+- Rodrigo Figueira de Lima
 
 
 ## Orientador

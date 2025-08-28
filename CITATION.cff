@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: Lacrei Insights
+message: >-
+  BI para Gestão de Doações e Prestação de contas: Parceria com a Voluntários da Alegria
+type: software
+authors:
+  - given-names: João
+    family-names: de Sousa Lourenço
+  - given-names: Matheus
+    family-names: Fernandes da Silva Otoni
+  - given-names: Lucas
+    family-names: Alves de Medeiros Ferreira
+  - given-names: Gabriel
+    family-names: Carvalho de Almeida Silva
+  - given-names: Fernando
+    family-names: de Souza Colini Taioba
+  - given-names: Ítalo
+    family-names: Rangel Penaforte Mendes
+  - given-names:
+    family-names:
+repository-code: >-
+  https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-grupo-4-1
+keywords:
+  - ONG
+  - Animais
+  - Defesa Animal
+  - Impacto Social
+  - Sustentabilidade
+  - Business Intelligence (BI)
+  - Extensão Universitária
+version: 1.0.0
+date-released: '2025-08-24'

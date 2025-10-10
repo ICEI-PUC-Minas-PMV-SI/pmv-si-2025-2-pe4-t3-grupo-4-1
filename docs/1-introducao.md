@@ -10,6 +10,7 @@ A importância do projeto é multifacetada. Para a comunidade acadêmica, repres
 
 ## Atividades realizadas pela ONG
 A ONG Voluntários da Alegria realiza dois tipos de atividades: ações e campanhas. Elas diferenciam entre si no que diz respeito à sua organização e controle, às atividades que são realizadas em cada uma delas e sua periodicidade.
+<img width="569" height="313" alt="figura-1" src="https://github.com/user-attachments/assets/0f79cb92-e3d3-459c-a6da-433b650ab092" />
 
 ## Campanhas
 São realizadas em prol de uma instituição ou necessidade específica. São feitas tanto para arrecadação financeira para custear algo, ou para arrecadação de um item em específico, como uma arrecadação de brinquedos para crianças.

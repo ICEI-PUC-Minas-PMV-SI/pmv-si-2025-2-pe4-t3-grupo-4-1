@@ -2,7 +2,7 @@
 
 ## Objetivo Geral
 
-Desenvolver um dashboard interativo no Power BI para analisar e comparar as arrecadações mensais da ONG Voluntários da Alegria, de modo a fortalecer a gestão estratégica e aprimorar a transparência na comunicação com doadores e apoiadores.
+Desenvolver um dashboard interativo no Power BI para analisar e comparar as arrecadações e a efetividade das ações e campanhas da ONG Voluntários da Alegria, exibindo a quantidade de dinheiro e/ou materiais arrecadados (comida, materiais de construção, brinquedos, remédios e etc) de modo a fortalecer a gestão estratégica e aprimorar a transparência na comunicação com doadores e apoiadores.
 
 ## Objetivos específicos
 
@@ -19,5 +19,3 @@ Desenvolver um dashboard interativo no Power BI para analisar e comparar as arre
 
 
 * Apoiar a tomada de decisão por meio de informações consolidadas, atualizadas e de fácil interpretação, contribuindo para a eficiência administrativa e para o engajamento social.
-
-

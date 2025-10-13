@@ -3,6 +3,7 @@
 ## Encontros
 
 Junto à ONG, os encontros são realizados de maneira remota, com a representante direta da instituição, Mariana, com uma frequência mínima de 15 em 15 dias. Para poder ser entendido as necessidades da Voluntários da Alegria. A partir desses encontros, é possível tomar decisões de maneira mais assertiva de como funcionará o sistema para que atenda as necessidades da melhor maneira possível.
+<img width="568" height="319" alt="figura-2" src="https://github.com/user-attachments/assets/61d02060-7ba8-4cff-8a29-8aaee0a1f30b" />
 
 ## Recursos tecnológicos da ONG
 

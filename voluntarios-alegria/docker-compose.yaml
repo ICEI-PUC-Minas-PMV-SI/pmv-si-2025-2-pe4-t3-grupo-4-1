@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app  # Sincroniza os arquivos do projeto no container
+    ports:
+      - "8000:8000"  # Mapeia a porta 8000 do container para a porta 8000 local
+    environment:
+      - PYTHONUNBUFFERED=1  # Para não ter buffering nos logs do Python
+      - DJANGO_SUPERUSER_USERNAME=admin  # Defina o nome de usuário
+      - DJANGO_SUPERUSER_PASSWORD=senha  # Defina a senha
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com  # Defina o e-mail
+

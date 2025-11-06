@@ -61,6 +61,7 @@ class Action(AuditModel):
 class Campaign(AuditModel):
     name = models.CharField(_("Nome"), max_length=200)
     description = models.TextField(_("Descrição"), blank=True)
+    category = models.CharField(_("Categoria"), max_length=20, choices=CATEGORY_CHOICES)
     goal_amount = models.DecimalField(_("Meta"), max_digits=12, decimal_places=2, default=0)
     start_date = models.DateField(_("Data de Início"))
     end_date = models.DateField(_("Data de Término"), null=True, blank=True)
@@ -69,22 +70,18 @@ class Campaign(AuditModel):
     class Meta:
         verbose_name = _("campanha")
         verbose_name_plural = _("campanhas")
-        indexes = [models.Index(fields=["status",])]
+        indexes = [models.Index(fields=["status", "category"])]
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
     @property
     def total_donations(self):
-        direct = self.donations.aggregate(s=Sum("amount"))["s"] or 0
-        via_actions = self.actions.aggregate(s=Sum("donations__amount"))["s"] or 0
-        return direct + via_actions
+        return self.donations.aggregate(s=Sum("amount"))["s"] or 0
 
     @property
     def total_expenses(self):
-        direct = self.expenses.aggregate(s=Sum("amount"))["s"] or 0
-        via_actions = self.actions.aggregate(s=Sum("expenses__amount"))["s"] or 0
-        return direct + via_actions
+        return self.expenses.aggregate(s=Sum("amount"))["s"] or 0
 
     @property
     def progress_percent(self):
@@ -97,7 +94,7 @@ class Campaign(AuditModel):
 
 
 class Donation(AuditModel):
-    donor_name = models.CharField(_("Nome do doador"),max_length=200, blank=True)
+    donor_name = models.CharField(_("Nome do doador"), max_length=200, blank=True)
     donor_email = models.EmailField(_("Email do doador"), blank=True)
     amount = models.DecimalField(_("Valor"), max_digits=12, decimal_places=2)
     description = models.TextField(_("Descrição"), blank=True)
@@ -137,7 +134,7 @@ class Expense(AuditModel):
     paid_at = models.DateTimeField(_("Data de Pagamento"))
     related_action = models.ForeignKey(Action, null=True, blank=True, on_delete=models.CASCADE, related_name="expenses", verbose_name=_("Ação relacionada") )
     related_campaign = models.ForeignKey(Campaign, null=True, blank=True, on_delete=models.CASCADE, related_name="expenses", verbose_name=_("Campanha relacionada"))
-    receipt = models.FileField(_("Comprovante"), upload_to="receipts/", validators=[validate_attachment])
+    receipt = models.FileField(_("Comprovante"), upload_to="receipts/", blank=True, validators=[validate_attachment])
 
     class Meta:
         constraints = [

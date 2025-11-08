@@ -6,7 +6,7 @@ import csv
 from django.contrib.auth import get_user_model
 from django.db.models import Q  # <-- add this
 from core.mixins import user_is_admin
-from .models import Action, Campaign, Donation, Expense
+from .models import Action, Campaign, Donation, Expense, Beneficiary
 from .forms import ActionForm, CampaignForm, DonationForm, ExpenseForm
 from django.utils.translation import gettext_lazy as _
 
@@ -35,45 +35,45 @@ def export_as_csv(modeladmin, request, queryset, fields, filename):
         writer.writerow([smart_str(getattr(obj, f)) for f in fields])
     return response
 
+
+@admin.register(Beneficiary)
+class BeneficiaryAdmin(admin.ModelAdmin):
+    list_display = ["name", "category", "contact_person", "phone", "email"]
+    search_fields = ["name", "contact_person", "email"]
+    list_filter = ["category"]
+
 @admin.register(Action)
 class ActionAdmin(admin.ModelAdmin):
-    form = ActionForm
-    list_display = ("title", "category", "status", "goal_amount", "total_donations", "total_expenses", "created_at")
-    list_filter = ("status", "category",)  # valid for Action (has category)
-    search_fields = ("title", "description")
-    readonly_fields = ("total_donations", "total_expenses", "progress_percent")
-    inlines = [DonationsInline, ExpensesInline]
+    list_display = ["title", "category", "status", "start_date", "end_date", "participants_count"]
+    search_fields = ["title", "description"]
+    list_filter = ["category", "status", "start_date", "end_date"]
+    filter_horizontal = ["participants"]
     actions = ["export_actions"]
 
     def save_model(self, request, obj, form, change):
-        if not obj.created_by_id:
-            obj.created_by = request.user
         super().save_model(request, obj, form, change)
 
-    def total_donations(self, obj):
-        return obj.total_donations
-    total_donations.short_description = _("Total de Doações")  # Tradução do campo no Admin
-
-    def total_expenses(self, obj):
-        return obj.total_expenses
-    total_expenses.short_description = _("Total de Despesas")  # Tradução do campo no Admin
-
-    def progress_percent(self, obj):
-        return f"{obj.progress_percent:.2f}%"
-    progress_percent.short_description = _("Percentual de Progresso")  # Tradução do campo no Admin
 
     def export_actions(self, request, queryset):
-        fields = ["id", "title", "category", "status", "goal_amount", "owner_id", "created_at", "updated_at"]
+        fields = [
+            "id",
+            "title",
+            "category",
+            "status",
+            "goal_amount",
+            "start_date",
+            "end_date",
+            "beneficiary_id",
+            "created_at",
+            "updated_at",
+        ]
         return export_as_csv(self, request, queryset, fields, "actions")
-
 @admin.register(Campaign)
-class CampaignAdmin(ActionAdmin):
+class CampaignAdmin(admin.ModelAdmin):
     form = CampaignForm
-    list_display = ("name", "status", "goal_amount", "total_donations", "total_expenses", "created_at")
-    # Campaign does NOT have "category" -> override list_filter to remove it
-    list_filter = ("status", )
-    search_fields = ("name", "description")
-
+    list_display = ["name", "status", "goal_amount", "total_donations", "total_expenses", "created_at"]
+    list_filter = ["status"]
+    search_fields = ["name", "description"]
 
     def export_actions(self, request, queryset):
         fields = ["id", "name", "status", "goal_amount", "owner_id", "created_at", "updated_at"]
@@ -82,9 +82,9 @@ class CampaignAdmin(ActionAdmin):
 @admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
     form = DonationForm
-    list_display = ("timestamp", "amount", "method", "source_action", "source_campaign", "created_by")
-    list_filter = ("method", )
-    search_fields = ("donor_name", "donor_email", "description")
+    list_display = ["timestamp", "amount", "method", "source_campaign"]
+    list_filter = ["method"]
+    search_fields = ["donor_name", "donor_email", "description"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
@@ -93,8 +93,6 @@ class DonationAdmin(admin.ModelAdmin):
         return qs.filter(Q(source_action__owner=request.user) | Q(source_campaign__owner=request.user))
 
     def save_model(self, request, obj, form, change):
-        if not obj.created_by_id:
-            obj.created_by = request.user
         if not user_is_admin(request.user):
             if obj.source_action and obj.source_action.owner_id != request.user.id:
                 from django.core.exceptions import ValidationError
@@ -107,9 +105,9 @@ class DonationAdmin(admin.ModelAdmin):
 @admin.register(Expense)
 class ExpenseAdmin(admin.ModelAdmin):
     form = ExpenseForm
-    list_display = ("title", "amount", "paid_at", "related_action", "related_campaign", "created_by")
+    list_display = ("title", "amount", "paid_at", "related_campaign")
     # Expense does NOT have "method" or "currency" -> use valid filters
-    list_filter = ("paid_at", "related_action", "related_campaign")
+    list_filter = ("paid_at", "related_campaign")
     search_fields = ("title", "description")
 
     def get_queryset(self, request):
@@ -119,8 +117,6 @@ class ExpenseAdmin(admin.ModelAdmin):
         return qs.filter(Q(related_action__owner=request.user) | Q(related_campaign__owner=request.user))
 
     def save_model(self, request, obj, form, change):
-        if not obj.created_by_id:
-            obj.created_by = request.user
         if not user_is_admin(request.user):
             if obj.related_action and obj.related_action.owner_id != request.user.id:
                 from django.core.exceptions import ValidationError

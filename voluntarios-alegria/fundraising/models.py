@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum, Q, CheckConstraint
+from django.db.models import Sum
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from core.models import AuditModel
@@ -29,7 +29,7 @@ class Action(AuditModel):
     start_date = models.DateField(_("Data de Início"))
     end_date = models.DateField(_("Data de Término"), null=True, blank=True)
     status = models.CharField(_("Sitação"), max_length=16, choices=STATUS_CHOICES, default="draft")
-
+    people_impacted = models.PositiveIntegerField(default=0)
 
     beneficiary = models.ForeignKey(
         "fundraising.Beneficiary",
@@ -39,8 +39,6 @@ class Action(AuditModel):
         verbose_name=_("Entidade beneficiada"),
         related_name="actions",
     )
-
-
 
     participants = models.ManyToManyField(
         User,

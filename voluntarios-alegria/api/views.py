@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView
-from fundraising.models import Campaign, Action, Donation, Expense
-from .serializers import CampaignSerializer, ActionSerializer, DonationSerializer, ExpenseSerializer
+from fundraising.models import Campaign, Action, Donation, Expense, Beneficiary
+from .serializers import CampaignSerializer, ActionSerializer, DonationSerializer, ExpenseSerializer, BeneficiarySerializer
 from django_filters import rest_framework as filters
 from .authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -34,6 +34,13 @@ class DonationListView(ListAPIView):
 class ExpenseListView(ListAPIView):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
+    filterset_class = DateFilterSet
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+class BeneficiaryListView(ListAPIView):
+    queryset = Beneficiary.objects.all()
+    serializer_class = BeneficiarySerializer
     filterset_class = DateFilterSet
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

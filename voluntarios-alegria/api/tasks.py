@@ -1,6 +1,6 @@
 import csv
 from django.conf import settings
-from fundraising.models import Campaign, Action, Donation, Expense
+from fundraising.models import Campaign, Action, Donation, Expense, Beneficiary
 from decimal import Decimal
 from django.utils import timezone
 
@@ -15,14 +15,15 @@ def convert_decimal_to_float(obj):
     return obj
 
 # Função para escrever todos os dados em um único arquivo CSV
-def write_all_to_csv(filename, campaigns_data, actions_data, donations_data, expenses_data):
+def write_all_to_csv(filename, campaigns_data, actions_data, donations_data, expenses_data, beneficiaries_data):
     # Combinando todos os dados em uma lista única
-    all_data = campaigns_data + actions_data + donations_data + expenses_data
+    all_data = campaigns_data + actions_data + donations_data + expenses_data + beneficiaries_data
 
     # Definir o nome das colunas (cabeçalho)
     fieldnames = [
         "Type", "Title", "Category", "GoalAmount", "TotalDonations", "StartDate", "EndDate",
-        "DonorName", "DonorEmail", "Amount", "Timestamp", "RelatedAction", "RelatedCampaign"
+        "DonorName", "DonorEmail", "Amount", "Timestamp", "RelatedAction", "RelatedCampaign",
+        "BeneficiaryName", "BeneficiaryEmail"
     ]
 
     with open(filename, mode='w', newline='', encoding='utf-8') as file:
@@ -120,7 +121,27 @@ def export_data_to_power_bi():
             "RelatedCampaign": expense.related_campaign.name if expense.related_campaign else "N/A"
         })
 
+    # 5. Exporta dados de Beneficiários
+    beneficiaries = Beneficiary.objects.all()
+    beneficiaries_data = []
+    for beneficiary in beneficiaries:
+        beneficiaries_data.append({
+            "Type": "Beneficiary",
+            "Title": "",
+            "Category": "",
+            "GoalAmount": "",
+            "TotalDonations": "",
+            "StartDate": "",
+            "EndDate": "",
+            "DonorName": beneficiary.name,
+            "DonorEmail": beneficiary.contact_info,
+            "Amount": "",
+            "Timestamp": "",
+            "RelatedAction": "",
+            "RelatedCampaign": ""
+        })
+
     # 5. Escreve todos os dados no CSV
-    write_all_to_csv('all_data.csv', campaigns_data, actions_data, donations_data, expenses_data)
+    write_all_to_csv('all_data.csv', campaigns_data, actions_data, donations_data, expenses_data, beneficiaries_data)
 
     print("Dados exportados para CSV com sucesso.")

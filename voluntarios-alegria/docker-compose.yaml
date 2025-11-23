@@ -11,4 +11,9 @@ services:
       - DJANGO_SUPERUSER_USERNAME=admin  # Defina o nome de usuário
       - DJANGO_SUPERUSER_PASSWORD=senha  # Defina a senha
       - DJANGO_SUPERUSER_EMAIL=admin@example.com  # Defina o e-mail
+    networks:
+      - tunnel-network
 
+networks:
+  tunnel-network:
+    external: true

@@ -66,6 +66,10 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 500,
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://voluntarios.darvinlabs.com'
+]
+
 
 CRONJOBS = [
     ('*/30 * * * *', 'api.tasks.export_data_to_power_bi'),

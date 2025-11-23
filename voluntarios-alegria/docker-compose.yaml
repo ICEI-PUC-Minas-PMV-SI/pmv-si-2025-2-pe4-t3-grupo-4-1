@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/app  # Sincroniza os arquivos do projeto no container
     ports:
-      - "8000:8000"  # Mapeia a porta 8000 do container para a porta 8000 local
+      - "8080:8000"  # Mapeia a porta 8000 do container para a porta 8000 local
     environment:
       - PYTHONUNBUFFERED=1  # Para não ter buffering nos logs do Python
       - DJANGO_SUPERUSER_USERNAME=admin  # Defina o nome de usuário

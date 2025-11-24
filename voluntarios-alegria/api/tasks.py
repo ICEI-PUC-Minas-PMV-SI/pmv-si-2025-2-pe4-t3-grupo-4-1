@@ -2,9 +2,9 @@ import requests
 import json
 from decimal import Decimal
 from fundraising.models import Campaign, Action, Donation, Expense, Beneficiary
+from datetime import datetime
 
-
-POWER_BI_ENDPOINT = "https://api.powerbi.com/beta/14cbd5a7-ec94-46ba-b314-cc0fc972a161/datasets/7aac548a-fa51-4c32-b3ce-f2421d98360a/rows?experience=power-bi&key=Fnd7yOIyvesZQKTCYMgy5dK/lgQhMyExZ+H8QrN/8IRsMFGthclkJLxXS13IEeXGE1CJs9eBjZPjJ88ymiJbng=="
+POWER_BI_ENDPOINT = "https://api.powerbi.com/beta/14cbd5a7-ec94-46ba-b314-cc0fc972a161/datasets/7aac548a-fa51-4c32-b3ce-f2421d98360a/rows?language=pt-BR&experience=power-bi&key=Fnd7yOIyvesZQKTCYMgy5dK%2FlgQhMyExZ%2BH8QrN%2F8IRsMFGthclkJLxXS13IEeXGE1CJs9eBjZPjJ88ymiJbng%3D%3D"
 
 
 # Converte Decimal → float
@@ -14,6 +14,7 @@ def to_float(v):
 
 # Função principal
 def export_data_to_power_bi():
+    print("Executando às:", datetime.now())
 
     rows = []
 

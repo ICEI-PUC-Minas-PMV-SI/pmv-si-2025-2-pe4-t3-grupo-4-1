@@ -6,6 +6,9 @@ python manage.py makemigrations
 # Rodar as migrações
 python manage.py migrate
 
+# Adicionar tarefas agendadas com django-crontab
+python manage.py crontab add
+
 # Criar o superusuário automaticamente usando as variáveis de ambiente
 python manage.py createsuperuser --noinput || true
 

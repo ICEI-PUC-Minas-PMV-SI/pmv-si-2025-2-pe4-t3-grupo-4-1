@@ -67,7 +67,8 @@ REST_FRAMEWORK = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://voluntarios.darvinlabs.com'
+    'https://voluntarios.darvinlabs.com',
+    'http://voluntarios.darvinlabs.com'
 ]
 
 

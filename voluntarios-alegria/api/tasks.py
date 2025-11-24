@@ -1,147 +1,149 @@
-import csv
-from django.conf import settings
-from fundraising.models import Campaign, Action, Donation, Expense, Beneficiary
+import requests
+import json
 from decimal import Decimal
-from django.utils import timezone
+from fundraising.models import Campaign, Action, Donation, Expense, Beneficiary
 
-# Função para converter Decimal para float
-def convert_decimal_to_float(obj):
-    if isinstance(obj, dict):
-        return {key: convert_decimal_to_float(value) for key, value in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimal_to_float(item) for item in obj]
-    elif isinstance(obj, Decimal):  # Convertendo Decimal para float
-        return float(obj)
-    return obj
 
-# Função para escrever todos os dados em um único arquivo CSV
-def write_all_to_csv(filename, campaigns_data, actions_data, donations_data, expenses_data, beneficiaries_data):
-    # Combinando todos os dados em uma lista única
-    all_data = campaigns_data + actions_data + donations_data + expenses_data + beneficiaries_data
+POWER_BI_ENDPOINT = "https://api.powerbi.com/beta/14cbd5a7-ec94-46ba-b314-cc0fc972a161/datasets/7aac548a-fa51-4c32-b3ce-f2421d98360a/rows?experience=power-bi&key=Fnd7yOIyvesZQKTCYMgy5dK/lgQhMyExZ+H8QrN/8IRsMFGthclkJLxXS13IEeXGE1CJs9eBjZPjJ88ymiJbng=="
 
-    # Definir o nome das colunas (cabeçalho)
-    fieldnames = [
-        "Type", "Title", "Category", "GoalAmount", "TotalDonations", "StartDate", "EndDate",
-        "DonorName", "DonorEmail", "Amount", "Timestamp", "RelatedAction", "RelatedCampaign",
-        "BeneficiaryName", "BeneficiaryEmail"
-    ]
 
-    with open(filename, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()  # Escreve o cabeçalho
-        writer.writerows(all_data)  # Escreve os dados combinados
+# Converte Decimal → float
+def to_float(v):
+    return float(v) if isinstance(v, Decimal) else v
 
-# Função de anonimização de dados
-def anonymize_data(name, email):
-    # Simulação de anonimização
-    anonymized_name = f"User_{hash(name)}"
-    anonymized_email = f"anon_{hash(email)}@domain.com"
-    return anonymized_name, anonymized_email
 
-# Função principal que será executada periodicamente
+# Função principal
 def export_data_to_power_bi():
-    # 1. Exporta dados de Campanhas
-    campaigns = Campaign.objects.all()
-    campaigns_data = []
-    for campaign in campaigns:
-        campaigns_data.append({
-            "Type": "Campaign",
-            "Title": campaign.name,
-            "Category": campaign.category,
-            "GoalAmount": campaign.goal_amount,
-            "TotalDonations": campaign.total_donations,
-            "StartDate": campaign.start_date.strftime("%Y-%m-%d"),
-            "EndDate": campaign.end_date.strftime("%Y-%m-%d") if campaign.end_date else "N/A",
-            "DonorName": "",
-            "DonorEmail": "",
-            "Amount": "",
-            "Timestamp": "",
-            "RelatedAction": "",
-            "RelatedCampaign": ""
+
+    rows = []
+
+    # -----------------------------
+    # 1. CAMPANHAS
+    # -----------------------------
+    for c in Campaign.objects.all():
+        rows.append({
+            "id": to_float(c.id),
+            "name": c.name,
+            "goal_amount": to_float(c.goal_amount),
+            "start_date": c.start_date.isoformat(),
+            "end_date": c.end_date.isoformat() if c.end_date else None,
+            "status": c.status,
+            "total_donations": to_float(c.total_donations),
+            "total_expenses": to_float(c.total_expenses),
+            "progress_porcent": to_float(c.progress_porcent),
+            "title": c.name,
+            "category": c.category,
+            "donor_name": "",
+            "donor_email": "",
+            "method": "",
+            "timestamp": "",
+            "campaign_id": to_float(c.id)
         })
 
-    # 2. Exporta dados de Ações
-    actions = Action.objects.all()
-    actions_data = []
-    for action in actions:
-        actions_data.append({
-            "Type": "Action",
-            "Title": action.title,
-            "Category": action.category,
-            "GoalAmount": action.goal_amount,
-            "TotalDonations": action.total_donations,
-            "StartDate": action.start_date.strftime("%Y-%m-%d"),
-            "EndDate": action.end_date.strftime("%Y-%m-%d") if action.end_date else "N/A",
-            "DonorName": "",
-            "DonorEmail": "",
-            "Amount": "",
-            "Timestamp": "",
-            "RelatedAction": "",
-            "RelatedCampaign": action.related_campaign.name if action.related_campaign else "N/A"
+    # -----------------------------
+    # 2. AÇÕES
+    # -----------------------------
+    for a in Action.objects.all():
+        rows.append({
+            "id": to_float(a.id),
+            "name": a.title,
+            "goal_amount": to_float(a.goal_amount),
+            "start_date": a.start_date.isoformat(),
+            "end_date": a.end_date.isoformat() if a.end_date else None,
+            "status": a.status,
+            "total_donations": to_float(a.total_donations),
+            "total_expenses": to_float(a.total_expenses),
+            "progress_porcent": to_float(a.progress_porcent),
+            "title": a.title,
+            "category": a.category,
+            "donor_name": "",
+            "donor_email": "",
+            "method": "",
+            "timestamp": "",
+            "campaign_id": to_float(a.related_campaign.id) if a.related_campaign else None
         })
 
-    # 3. Exporta dados de Doações
-    donations = Donation.objects.all()
-    donations_data = []
-    for donation in donations:
-        anonymized_name, anonymized_email = anonymize_data(donation.donor_name, donation.donor_email)
-        donations_data.append({
-            "Type": "Donation",
-            "Title": donation.source_campaign.name if donation.source_campaign else "N/A",
-            "Category": "",
-            "GoalAmount": "",
-            "TotalDonations": "",
-            "StartDate": "",
-            "EndDate": "",
-            "DonorName": anonymized_name,
-            "DonorEmail": anonymized_email,
-            "Amount": donation.amount,
-            "Timestamp": donation.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
-            "RelatedAction": "",
-            "RelatedCampaign": ""
+    # -----------------------------
+    # 3. DOAÇÕES
+    # -----------------------------
+    for d in Donation.objects.all():
+        rows.append({
+            "id": to_float(d.id),
+            "name": "Donation",
+            "goal_amount": "",
+            "start_date": "",
+            "end_date": "",
+            "status": "",
+            "total_donations": "",
+            "total_expenses": "",
+            "progress_porcent": "",
+            "title": d.source_campaign.name if d.source_campaign else "",
+            "category": "",
+            "donor_name": d.donor_name,
+            "donor_email": d.donor_email,
+            "method": d.method,
+            "timestamp": d.timestamp.isoformat(),
+            "campaign_id": to_float(d.source_campaign.id) if d.source_campaign else None
         })
 
-    # 4. Exporta dados de Despesas
-    expenses = Expense.objects.all()
-    expenses_data = []
-    for expense in expenses:
-        expenses_data.append({
-            "Type": "Expense",
-            "Title": expense.title,
-            "Category": "",
-            "GoalAmount": "",
-            "TotalDonations": "",
-            "StartDate": "",
-            "EndDate": "",
-            "DonorName": "",
-            "DonorEmail": "",
-            "Amount": expense.amount,
-            "Timestamp": expense.paid_at.strftime("%Y-%m-%d %H:%M:%S"),
-            "RelatedAction": expense.related_action.title if expense.related_action else "N/A",
-            "RelatedCampaign": expense.related_campaign.name if expense.related_campaign else "N/A"
+    # -----------------------------
+    # 4. DESPESAS
+    # -----------------------------
+    for e in Expense.objects.all():
+        rows.append({
+            "id": to_float(e.id),
+            "name": e.title,
+            "goal_amount": "",
+            "start_date": "",
+            "end_date": "",
+            "status": "",
+            "total_donations": "",
+            "total_expenses": to_float(e.amount),
+            "progress_porcent": "",
+            "title": e.title,
+            "category": "",
+            "donor_name": "",
+            "donor_email": "",
+            "method": "",
+            "timestamp": e.paid_at.isoformat() if e.paid_at else "",
+            "campaign_id": to_float(e.related_campaign.id) if e.related_campaign else None
         })
 
-    # 5. Exporta dados de Beneficiários
-    beneficiaries = Beneficiary.objects.all()
-    beneficiaries_data = []
-    for beneficiary in beneficiaries:
-        beneficiaries_data.append({
-            "Type": "Beneficiary",
-            "Title": "",
-            "Category": "",
-            "GoalAmount": "",
-            "TotalDonations": "",
-            "StartDate": "",
-            "EndDate": "",
-            "DonorName": beneficiary.name,
-            "DonorEmail": beneficiary.contact_info,
-            "Amount": "",
-            "Timestamp": "",
-            "RelatedAction": "",
-            "RelatedCampaign": ""
+    # -----------------------------
+    # 5. BENEFICIÁRIOS
+    # -----------------------------
+    for b in Beneficiary.objects.all():
+        rows.append({
+            "id": to_float(b.id),
+            "name": "Beneficiary",
+            "goal_amount": "",
+            "start_date": "",
+            "end_date": "",
+            "status": "",
+            "total_donations": "",
+            "total_expenses": "",
+            "progress_porcent": "",
+            "title": "",
+            "category": "",
+            "donor_name": b.name,
+            "donor_email": b.contact_info,
+            "method": "",
+            "timestamp": "",
+            "campaign_id": ""
         })
 
-    # 5. Escreve todos os dados no CSV
-    write_all_to_csv('all_data.csv', campaigns_data, actions_data, donations_data, expenses_data, beneficiaries_data)
+    # -----------------------------
+    #  ENVIO PARA O POWER BI
+    # -----------------------------
+    payload = {"rows": rows}
 
-    print("Dados exportados para CSV com sucesso.")
+    response = requests.post(
+        POWER_BI_ENDPOINT,
+        headers={"Content-Type": "application/json"},
+        data=json.dumps(payload)
+    )
+
+    print("Status Code:", response.status_code)
+    print("Resposta:", response.text)
+
+    return response.status_code

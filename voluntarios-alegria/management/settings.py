@@ -71,6 +71,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://voluntarios.darvinlabs.com'
 ]
 
+ALLOWED_HOSTS = [
+    'voluntarios.darvinlabs.com',
+]
+
+
 
 CRONJOBS = [
     ('*/30 * * * *', 'api.tasks.export_data_to_power_bi'),

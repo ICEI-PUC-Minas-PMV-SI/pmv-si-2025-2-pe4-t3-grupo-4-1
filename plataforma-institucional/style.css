@@ -1,0 +1,419 @@
+/* --- RESET E VARIÁVEIS --- */
+:root {
+    --primary: #2C3E50;
+    /* Azul Escuro */
+    --secondary: #E67E22;
+    /* Laranja Acolhedor */
+    --accent: #27AE60;
+    /* Verde Vida */
+    --bg-light: #F9F9F9;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --white: #FFFFFF;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- CABEÇALHO --- */
+header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    height: 10rem;
+    /* Altura desejada */
+    overflow: hidden;
+
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a:hover {
+    color: var(--secondary);
+}
+
+.btn-donate {
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.btn-donate:hover {
+    background-color: #d35400;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)),
+        url('https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding-top: 80px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-btn {
+    background-color: var(--accent);
+    color: var(--white);
+    padding: 15px 40px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* --- SOBRE NÓS --- */
+.section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: var(--text-light);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.about-img {
+    width: 100%;
+    height: 400px;
+    background-color: #ddd;
+    border-radius: 10px;
+    background-image: url('https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    box-shadow: var(--shadow);
+}
+
+/* --- CAUSAS --- */
+.causes {
+    background-color: var(--white);
+}
+
+.causes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--bg-light);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: var(--shadow);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img {
+    height: 200px;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-content {
+    padding: 30px;
+}
+
+.card-content h3 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.card-content p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Imagens placeholders para os cards */
+.img-idosos {
+    background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+}
+
+.img-animais {
+    background-image: url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1450&q=80');
+}
+
+.img-criancas {
+    background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+}
+
+.img-meio-ambiente {
+    background-image: url('https://www.gov.br/turismo/pt-br/centrais-de-conteudo/30-06-cataratas-jpg');
+}
+
+
+/* --- SEÇÃO DE ATIVIDADES --- */
+.activities-section {
+    padding: 80px 0;
+}
+
+.activity-row {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 80px;
+    /* Espaço entre as atividades */
+}
+
+/* Remove a margem do último item para não sobrar espaço */
+.activity-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Inverte a ordem visual na segunda atividade (par) */
+.activity-row:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.act-content {
+    flex: 1;
+    /* Ocupa metade do espaço */
+}
+
+.act-content h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* Detalhe visual (tracinho) abaixo do título */
+.act-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--secondary);
+    border-radius: 2px;
+}
+
+.act-content p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.act-list {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.act-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Ícone de check antes da lista */
+.act-list li::before {
+    content: '✔';
+    color: var(--accent);
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.act-image {
+    flex: 1;
+    height: 400px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.act-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.act-image:hover img {
+    transform: scale(1.05);
+    /* Zoom suave ao passar o mouse */
+}
+
+/* Ajuste para Celular */
+@media (max-width: 768px) {
+
+    .activity-row,
+    .activity-row:nth-child(even) {
+        flex-direction: column;
+        /* Empilha tudo na vertical */
+    }
+
+    .act-image {
+        width: 100%;
+        height: 250px;
+        /* Imagem menor no celular */
+    }
+}
+
+/* --- DASHBOARD / BI SECTION --- */
+.bi-section {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 80px 0;
+}
+
+.bi-section .section-title h2 {
+    color: var(--white);
+}
+
+.bi-section .section-title p {
+    color: #ccc;
+}
+
+.bi-container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    height: 600px;
+    /* Altura do Dashboard */
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bi-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    color: #888;
+}
+
+/* Classe para o iframe real */
+iframe.bi-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #222;
+    color: #888;
+    padding: 50px 0;
+}
+
+footer p {
+    margin-top: .5rem;
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    /* Menu simplificado para mobile */
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}

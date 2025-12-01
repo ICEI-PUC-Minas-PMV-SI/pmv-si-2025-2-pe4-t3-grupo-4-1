@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from management import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/", include("api.urls")),  # Inclui as URLs da API
+    path('', views.home, name='home'),
 ]

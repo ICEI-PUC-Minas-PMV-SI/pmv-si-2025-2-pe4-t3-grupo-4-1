@@ -1,11 +1,14 @@
 # Etapa 1: Usar uma imagem base do Python
-FROM python:3.12-slim
+FROM python:3.12
 
 # Etapa 2: Definir o diretório de trabalho dentro do container
 WORKDIR /app
 
 # Etapa 3: Copiar o arquivo de dependências (requirements.txt) para o diretório de trabalho
 COPY requirements.txt /app/
+
+# Instalar cron e dependências básicas
+RUN apt update && apt install -y cron && apt clean
 
 # Etapa 4: Instalar as dependências do projeto
 RUN pip install --no-cache-dir -r requirements.txt

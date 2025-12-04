@@ -18,83 +18,75 @@ Conforme o levantamento realizado junto à ONG, a organização não possui uma 
 * Google Forms: É a ferramenta utilizada para a captação de dados. Seus usos incluem o mapeamento de adesão para ações específicas, inscrições de novos voluntários, pedido de camiseta da ONG.
 
 ## Arquitetura do Sistema Proposto
-A arquitetura proposta tem como objetivo centralizar a gestão de informações da ONG Voluntários da Alegria em um sistema web próprio, que servirá como base confiável para a alimentação de dados sobre ações, campanhas, voluntários e doações. Esse sistema funcionará como fonte única de verdade (Single Source of Truth), permitindo a integração com o Power BI, que consumirá essas informações para gerar relatórios e dashboards interativos.
-
-### 1. Camada de Entrada de Dados (Sistema Web da ONG)
-A aplicação será responsável por:
-* Cadastro, edição, consulta e exclusão de campanhas, ações, voluntários e colaboradores.
-* Registro de doações financeiras e materiais.
-* Disponibilização de formulários públicos para inscrição de voluntários e recebimento de doações (com QR Code ou chave Pix).
-* Geração de logs de atividades para auditoria e maior transparência.
-O sistema será desenvolvido como uma aplicação web responsiva, acessível a partir de computadores e dispositivos móveis, garantindo facilidade de uso para gestores e voluntários.
-
-### 2. Camada de Persistência de Dados (Banco de Dados Relacional)
-Todas as informações do sistema serão armazenadas em um banco de dados relacional, estruturado em tabelas que representarão as entidades principais:
-* Campanhas (objetivo, período, valores arrecadados, taxa de sucesso).
-* Ações (tipo, participantes, impacto).
-* Voluntários (dados cadastrais, histórico de participação).
-* Doações (financeiras e materiais, vinculadas a campanhas/ações).
-Essa camada garante integridade, consistência e segurança dos dados, além de possibilitar integrações futuras.
-
-### 3. Camada de Processamento e Integração
-O sistema web disponibilizará uma API REST que permitirá:
-* Consumo dos dados pelo Power BI para geração de dashboards.
-* Gerenciamento de informações através de cadastro, leitura, atualização e remoção (CRUD).
-* Criação de endpoints específicos para relatórios consolidados, facilitando a análise no Power BI sem necessidade de transformação manual.
-
-### 4. Camada Analítica (Power BI)
-O Power BI será conectado diretamente à API do sistema, garantindo que os dados utilizados para relatórios estejam sempre atualizados. Entre as principais funcionalidades:
-* Dashboards para análise de arrecadações e comparação entre frentes de atuação.
-* Indicadores de desempenho de campanhas e ações (taxa de adesão, popularidade, arrecadação recorrente).
-* Segmentações por período, causa e tipo de doação.
-* Exportação e compartilhamento de relatórios para gestores, voluntários e apoiadores.
-
-### 5. Camada de Acesso e Segurança
-A arquitetura prevê diferentes níveis de acesso:
-* Administradores: acesso completo a cadastros, relatórios e configurações.
-* Membros voluntários: acesso restrito a campanhas/ações em que atuam.
-* Público externo: acesso apenas a relatórios de transparência e páginas públicas de inscrição/doação.
-A segurança será garantida por:
-* Autenticação com JWT.
-* Criptografia de dados sensíveis, em conformidade com a LGPD.
-* Controle de permissões por perfil.
-
-### 6. Benefícios da Arquitetura Proposta
-* Centralização: todos os dados da ONG ficam em um único sistema.
-* Facilidade no cadastro de dados, posto que mais voluntários terão acesso ao registro de informações relevantes para a atuação da ONG.
-* Integração nativa com Power BI, garantindo dashboards dinâmicos e confiáveis.
-* Maior transparência: dados abertos ao público, fortalecendo a credibilidade.
-* Escalabilidade: possibilidade de expansão para novas métricas, módulos ou integrações.
-* Segurança e conformidade: proteção de dados sensíveis e aderência à LGPD.
-
-## Métricas
-
-As métricas do sistema são cálculos feitos a partir dos dados disponibilizados do sistema, para o melhor acompanhamento das atividades, campanhas e ações, realizadas pela ONG, durante um período de tempo. Essas métricas serão disponibilizadas no painel de amostragem de dados no sistema.
-
-* ### LISTAGEM DAS MÉTRICAS
-* Número total de doações por campanha
-* Número total de doadores das campanhas
-* Valor total arrecadado pelas campanhas, num período de tempo
-* Número total de objetos doados e seu valor total estimado
-* Valor total de dinheiro arrecadado por campanha
-* Valor total de dinheiro arrecadado nas campanhas durante um período de tempo
-* Valor total do dinheiro gasto por campanha
-* Valor total do dinheiro gasto por ação
-* Valor total do dinheiro gasto com as atividades num período de tempo
-* Valor total do dinheiro gasto por frente, animal, meio ambiente, crianças e idosos
-* Valor total arrecadado por frente, animal, meio ambiente, crianças e idosos, nas campanhas
-* Quantidade de atividades realizadas por frente, animal, meio ambiente, crianças e idosos, categorizada por campanha e ações
-* Quantidade total de campanhas que não atenderam a meta de doações a serem atingidas
-* Quantidade total de campanhas que tiveram as metas bem sucedidas
-* Quantidade total de pessoas impactadas pelas ações no sistema
-* Quantidade total de grupo beneficiado no sistema
-* Quantidade total de voluntários que marcaram presença nas açòes
-* Quantidade total de voluntários inscritos nas atividades, ações e campanhas, no sistema
+ARQUITETURA DO SISTEMA
+A arquitetura do sistema tem como objetivo centralizar a gestão de informações da ONG Voluntários da Alegria, unificando dados de campanhas, ações, voluntários e doações em uma plataforma web e integrada ao Power BI.
+1. Camada de Entrada de Dados (Frontend)
+Desenvolvida em Django Template (HTML, CSS, JS);
+Interface web responsiva e intuitiva;
+Funcionalidades: cadastro, consulta, edição e exclusão de campanhas, ações, voluntários e doações;
+2. Camada de Processamento e Integração (Backend/API)
+Implementada em Python com o framework Django (Django REST Framework).
+Utiliza API RESTful para comunicação entre o frontend, o banco de dados e o Power BI.
+Autenticação JWT (JSON Web Token) para controle de acesso e segurança.
+Endpoints CRUD e endpoints específicos para relatórios consolidados, consumidos pelo Power BI.
+Respostas em formato JSON, seguindo padrão REST e comunicação via HTTPS.
+3. Camada de Persistência de Dados (Banco de Dados)
+Utiliza o SQLite como Sistema Gerenciador de Banco de Dados (SGBD).
+Estrutura relacional com tabelas de campanhas, ações, voluntários, doações e usuários.
+Garantia de integridade, consistência e segurança das informações.
+4. Camada Analítica (Power BI)
+O Power BI consome os dados da API via token de serviço autenticado.
+Exibe dashboards com métricas consolidadas (valor arrecadado, taxa de adesão, engajamento etc.).
+Atualização automática a partir dos dados reais do sistema.
+5. Camada de Acesso e Segurança
+Perfis de acesso: Administrador e Voluntário.
+Criptografia de dados sensíveis e conformidade com a LGPD.
+Controle de permissões e autenticação baseada em JWT.
+6. Benefícios da Arquitetura Proposta
+Centralização e integridade dos dados.
+Transparência nas ações e campanhas.
+Integração direta com o Power BI.
+Segurança e escalabilidade para futuras expansões.
 
 
 
-## Projeto do Data Warehouse/ Data Mart
-TODO
 
-## Integração de Fontes de Dados
-TODO
+# INTEGRAÇÃO DE DADOS E PROCESSO DE ETL
+Nesta etapa foi implementado o processo de integração de dados entre o sistema web desenvolvido em Django e a camada analítica construída no Power BI, responsável por consolidar as informações operacionais da ONG Voluntários da Alegria.
+O objetivo central foi garantir que os dados cadastrados no sistema — como campanhas, ações, doações, despesas e beneficiários — fossem automaticamente coletados, transformados e disponibilizados em formato padronizado, servindo como base para a análise gerencial e a tomada de decisão estratégica da instituição.
+O processo de ETL (Extração, Transformação e Carga) foi planejado para atuar de forma automatizada, permitindo que as informações sejam extraídas periodicamente do banco de dados SQLite, tratadas para garantir anonimização e consistência, e armazenadas em um formato pronto para consumo pelo Power BI.
+Dessa forma, a ONG passa a dispor de uma fonte única de verdade (Single Source of Truth), unindo dados financeiros e operacionais em uma visão consolidada.
+
+## PROCESSO DE ETL
+### Extração
+A extração dos dados é realizada diretamente do banco SQLite, utilizado pelo sistema Django. Foram definidas queries específicas para cada entidade principal do sistema:
+Campanhas (Campaign): nome, categoria, valor-meta, valor arrecadado e datas.
+
+
+Ações (Action): título, categoria, participantes e período de realização.
+Doações (Donation): valor, método de pagamento e campanha relacionada.
+Despesas (Expense): valor, data de pagamento e campanha relacionada.
+Beneficiários (Beneficiary): nome da entidade e tipo de grupo atendido.
+A extração é feita através de um job automático, configurado com o pacote django-crontab, que executa a função export_data_to_csv no intervalo definido (atualmente a cada 30 segundos em ambiente de teste).
+
+### Transformação
+Durante o processo de transformação, os dados passam por tratamento e anonimização antes de serem gravados. As principais transformações aplicadas incluem:
+Anonimização de dados sensíveis: remoção ou substituição de nomes, e-mails e identificadores diretos de usuários e doadores.
+Normalização de campos: padronização de datas, categorias e formatos monetários.
+Cálculo de indicadores derivados, como:
+Progresso de arrecadação (% da meta atingida);
+Total de participantes por ação;
+Valor total de doações e despesas por campanha;
+Quantidade de beneficiários atendidos.
+Essas transformações garantem integridade, consistência e conformidade com a LGPD (Lei nº 13.709/2018).
+
+
+### Carga
+Após o tratamento, os dados consolidados são salvos em um único arquivo CSV unificado, gerado automaticamente no diretório do projeto. O arquivo contém todas as informações integradas, organizadas em colunas padronizadas e prontas para importação no Power BI. Cada execução do job substitui o arquivo anterior, garantindo que o Power BI sempre acesse os dados mais recentes.
+
+
+### Plataformas do sistema
+Aqui disponibilizamos o acesso às plataformas do Power BI e o sistema que a ONG utilizará no seu dia a dia.
+
+[Power BI](https://app.powerbi.com/view?r=eyJrIjoiYjdlYjJmMjQtZWU3Yi00NWIyLTg2MjktYzViODA5ZWE0OGIzIiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9)
+[Painel administrativo](https://voluntarios.darvinlabs.com/admin/login/?next=/admin/)

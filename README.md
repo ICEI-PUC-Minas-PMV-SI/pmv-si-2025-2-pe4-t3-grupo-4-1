@@ -25,13 +25,14 @@ BI para Gestão de Doações e Prestação de Contas
 
 # Planejamento
 
-|  Etapa  | Atividades                                                                                          |
-| :-----: | --------------------------------------------------------------------------------------------------- |
-| ETAPA 1 | [Documentação de Contexto](docs/context.md) <br> [Especificação do Projeto](docs/especification.md) |
-| ETAPA 2 | [Projeto de Interface](docs/interface.md) <br> [Template Padrão](docs/template.md)                  |
-| ETAPA 3 | [Programação de Funcionalidades](docs/development.md)                                               |
-| ETAPA 4 | [Programação de Funcionalidades](docs/development.md) <br> [Testes de Software ](docs/tests.md)     |
-| ETAPA 5 | [Apresentação](presentation/README.md)                                                              |
+|  Etapa  | Atividades                                                                                                          |
+| :-----: | ------------------------------------------------------------------------------------------------------------------- |
+| ETAPA 1 | [Introdução](docs/1-introducao.md) <br> [Diagnóstico da Situação-Problema](docs/2-diagnostico-situacao-problema.md) |
+| ETAPA 2 | [Justificativa](docs/justificativa.md) <br> [Objetivos](docs/objetivos.md)                                          |
+| ETAPA 3 | [Publico Alvo](docs/publico-alvo.md) <br> [Metodologia](docs/metodologia.md) |
+| ETAPA 4 | [Requisitos](docs/requisitos.md) <br> [Modelagem Sistema](docs/modelagem-sistema.md) |
+| ETAPA 5 | [Prototipo de Baixa Fidelidade](docs/prototipo-baixa-fidelidade.md) <br> [Modelagem Sistema](docs/modelagem-sistema.md) |
+| ETAPA 6 | [Apresentação](presentation/README.md)                                                              |
 
 # Código
 

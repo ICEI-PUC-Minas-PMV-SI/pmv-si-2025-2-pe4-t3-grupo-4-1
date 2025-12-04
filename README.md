@@ -25,14 +25,14 @@ BI para Gestão de Doações e Prestação de Contas
 
 # Planejamento
 
-|  Etapa  | Atividades                                                                                                          |
-| :-----: | ------------------------------------------------------------------------------------------------------------------- |
-| ETAPA 1 | [Introdução](docs/1-introducao.md) <br> [Diagnóstico da Situação-Problema](docs/2-diagnostico-situacao-problema.md) |
-| ETAPA 2 | [Justificativa](docs/justificativa.md) <br> [Objetivos](docs/objetivos.md)                                          |
-| ETAPA 3 | [Publico Alvo](docs/publico-alvo.md) <br> [Metodologia](docs/metodologia.md) |
-| ETAPA 4 | [Requisitos](docs/requisitos.md) <br> [Modelagem Sistema](docs/modelagem-sistema.md) |
-| ETAPA 5 | [Prototipo de Baixa Fidelidade](docs/prototipo-baixa-fidelidade.md) <br> [Modelagem Sistema](docs/modelagem-sistema.md) |
-| ETAPA 6 | [Apresentação](presentation/README.md)                                                              |
+|  Etapa  | Atividades                                                                                                                  |
+| :-----: | --------------------------------------------------------------------------------------------------------------------------- |
+| ETAPA 1 | [Introdução](docs/1-introducao.md) <br> [Diagnóstico da Situação-Problema](docs/2-diagnostico-situacao-problema.md)         |
+| ETAPA 2 | [Justificativa](docs/3-justificativa.md) <br> [Objetivos](docs/4-objetivos.md)                                              |
+| ETAPA 3 | [Publico Alvo](docs/5-publico-alvo.md) <br> [Metodologia](docs/6-metodologia.md)                                            |
+| ETAPA 4 | [Requisitos](docs/7-requisitos.md) <br> [Modelagem Sistema](docs/8-modelagem-sistema.md)                                    |
+| ETAPA 5 | [Prototipo de Baixa Fidelidade](docs/9-prototipo-baixa-fidelidade.md) <br> [Modelagem Sistema](docs/8-modelagem-sistema.md) |
+| ETAPA 6 | [Apresentação](presentation/README.md)                                                                                      |
 
 # Código
 

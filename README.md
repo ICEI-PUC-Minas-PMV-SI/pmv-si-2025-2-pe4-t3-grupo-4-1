@@ -36,8 +36,16 @@ BI para Gestão de Doações e Prestação de Contas
 
 # Código
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+<li><a href="voluntarios-alegria/README.md">Painel administrativo</a></li>
+<li><a href="plataforma-institucional/README.md">Site institucional</a></li>
 
 # Apresentação
 
 <li><a href="presentation/README.md"> Apresentação da solução</a></li>
+
+
+# Plataformas do sistema
+
+<li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjdlYjJmMjQtZWU3Yi00NWIyLTg2MjktYzViODA5ZWE0OGIzIiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9">Power BI</a></li>
+<li><a href="https://voluntarios.darvinlabs.com">Site institucional</a></li>
+<li><a href="https://voluntarios.darvinlabs.com/admin/login/?next=/admin/">Painel administrativo</a></li>

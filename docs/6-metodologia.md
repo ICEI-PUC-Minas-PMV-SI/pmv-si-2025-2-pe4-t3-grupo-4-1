@@ -3,6 +3,19 @@
 ## Encontros
 
 Junto à ONG, os encontros são realizados de maneira remota, com a representante direta da instituição, Mariana, com uma frequência mínima de 15 em 15 dias. Para poder ser entendido as necessidades da Voluntários da Alegria. A partir desses encontros, é possível tomar decisões de maneira mais assertiva de como funcionará o sistema para que atenda as necessidades da melhor maneira possível.
+
+Figura 1: Contato Inicial para marcar a reunião com a ONG
+
+<img height="500" alt="contato-1" src="https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-grupo-4-1/refs/heads/main/docs/img/contato-01.jpeg" />
+
+<img height="500" alt="contato-2" src="https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-grupo-4-1/refs/heads/main/docs/img/contato-02.jpeg" />
+
+<img height="500" alt="contato-3" src="https://raw.githubusercontent.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-grupo-4-1/refs/heads/main/docs/img/contato-03.jpeg" />
+
+
+
+Figura 2: Encontro do dia 10 de Setembro com a Mariana, representante da ONG.
+
 <img width="568" height="319" alt="figura-2" src="https://github.com/user-attachments/assets/61d02060-7ba8-4cff-8a29-8aaee0a1f30b" />
 
 ## Recursos tecnológicos da ONG

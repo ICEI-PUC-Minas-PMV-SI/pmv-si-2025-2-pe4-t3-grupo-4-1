@@ -2,7 +2,7 @@
 
 [Slides da apresentação](./apresentacao-voluntarios.pdf)
 
-[Relatório do Projeto do Eixo4](./Relatório do Projeto do Eixo 4 - Extensão.docx)
+[Relatório do Projeto do Eixo4](https://github.com/ICEI-PUC-Minas-PMV-SI/pmv-si-2025-2-pe4-t3-grupo-4-1/blob/main/presentation/Relat%C3%B3rio%20do%20Projeto%20do%20Eixo%204%20-%20Extens%C3%A3o.docx)
 
 ## Portal apresentado
 ### Site institucional

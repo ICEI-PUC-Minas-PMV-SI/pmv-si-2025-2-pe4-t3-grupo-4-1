@@ -2,6 +2,8 @@
 
 [Slides da apresentação](./apresentacao-voluntarios.pdf)
 
+[Relatório do Projeto do Eixo4](./Relatório do Projeto do Eixo 4 - Extensão.docx)
+
 ## Portal apresentado
 ### Site institucional
 

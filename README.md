@@ -36,7 +36,7 @@ BI para Gestão de Doações e Prestação de Contas
 
 # Código
 
-<li><a href="voluntarios-alegria/README.md">Painel administrativo</a></li>
+<li><a href="https://voluntarios.darvinlabs.com/admin/login/?next=/admin/">Painel administrativo</a></li>
 <li><a href="plataforma-institucional/README.md">Site institucional</a></li>
 
 # Apresentação
